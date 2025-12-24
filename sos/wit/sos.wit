@@ -1,0 +1,6 @@
+package foo:bar;
+
+world sos {
+    import square: func(x: u32) -> u32;
+    export sum-of-squares: func(x: u32, y: u32) -> u32;
+}

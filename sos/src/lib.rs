@@ -1,6 +1,8 @@
 use wit_bindgen::generate;
 
-generate!();
+generate!({
+    disable_run_ctors_once_workaround: true,
+});
 
 pub struct Thing;
 impl Guest for Thing {

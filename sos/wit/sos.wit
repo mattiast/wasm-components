@@ -1,6 +1,16 @@
 package foo:bar;
 
+interface logger {
+    enum level {
+        debug,
+        info,
+        error,
+    }
+    log: func(level: level, message: string); 
+}
+
 world sos {
     import square: func(x: u32) -> u32;
+    import logger;
     export sum-of-squares: func(x: u32, y: u32) -> u32;
 }

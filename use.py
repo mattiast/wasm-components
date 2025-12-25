@@ -15,6 +15,8 @@ def square(store, x: int) -> int:
 
 with linker.root() as root:
     root.add_func("square", square)
+    with root.add_instance("foo:bar/logger") as logger:
+        logger.add_func("log", lambda store, level, msg: print(f"[{level}] {msg}"))
 
 # Load and instantiate the component
 component = Component.from_file(engine, "sos.c.wasm")

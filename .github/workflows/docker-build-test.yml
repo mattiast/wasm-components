@@ -25,5 +25,5 @@ jobs:
           load: true
           tags: vasmu:latest
 
-      - name: Run verification script
-        run: docker run --rm vasmu:latest
+      - name: Run tests
+        run: docker run --rm vasmu:latest /workspace/venv/bin/pytest -v /workspace/test_sos.py

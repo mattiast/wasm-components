@@ -36,6 +36,6 @@ RUN python3 -m venv /workspace/venv
 RUN /workspace/venv/bin/pip install --upgrade pip && \
     /workspace/venv/bin/pip install wasmtime pytest
 
-COPY use.py /workspace/
-# Step 4: Run the verification script
-CMD ["/workspace/venv/bin/python", "/workspace/use.py"]
+COPY test_sos.py /workspace/
+# Step 4: Run the tests
+CMD ["/workspace/venv/bin/pytest", "-v", "/workspace/test_sos.py"]

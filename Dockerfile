@@ -23,12 +23,23 @@ RUN cd /workspace/sos && \
     cargo build --target wasm32-unknown-unknown --release
 
 # Step 2: Create component with wasm-tools
-RUN wasm-tools component embed \
-    /workspace/sos/wit/sos.wit \
-    /workspace/sos/target/wasm32-unknown-unknown/release/sos.wasm \
-    -o /workspace/sos.e.wasm
+#
+# The wit_bindgen::generate! macro already embeds the WIT world into the
+# core module as a "component-type" custom section, so sos.wasm can be
+# turned into a component directly.
+#
+# For toolchains that do NOT embed the WIT metadata themselves, an extra
+# step is needed first, and `component new` is then run on its output:
+#
+#   RUN wasm-tools component embed \
+#       /workspace/sos/wit/sos.wit \
+#       /workspace/sos/target/wasm32-unknown-unknown/release/sos.wasm \
+#       -o /workspace/sos.e.wasm
+#   RUN wasm-tools component new \
+#       /workspace/sos.e.wasm \
+#       -o /workspace/sos.c.wasm
 RUN wasm-tools component new \
-    /workspace/sos.e.wasm \
+    /workspace/sos/target/wasm32-unknown-unknown/release/sos.wasm \
     -o /workspace/sos.c.wasm
 
 # Step 3: Create Python venv and install wasmtime
